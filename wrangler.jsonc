@@ -1,6 +1,11 @@
 {
-  // Cloudflare deployment via OpenNext (https://opennext.js.org/cloudflare).
-  // Build + deploy: npx opennextjs-cloudflare build && npx opennextjs-cloudflare deploy
+  // Deployed by Cloudflare Workers Builds on every push to main:
+  //   Build command:  npx opennextjs-cloudflare build
+  //   Deploy command: npx opennextjs-cloudflare deploy   (auto-detected)
+  // The build command lives in the Worker's dashboard (Settings → Build) —
+  // Workers Builds does not read it from this file, and without it the deploy
+  // step fails with "Could not find compiled Open Next config".
+  // The same two commands work for a manual deploy from a checkout.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "edge-bench",
   "main": ".open-next/worker.js",
@@ -8,6 +13,21 @@
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
-  }
+    "binding": "ASSETS",
+  },
+  "observability": {
+    "enabled": false,
+    "head_sampling_rate": 1,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1,
+    },
+  },
 }

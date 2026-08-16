@@ -99,8 +99,11 @@ pnpm dev
 unauthenticated, 500 with a token via `GLOBALPING_TOKEN`) and rebuilds the
 summary. The GitHub workflow does the same on schedule and commits the results.
 
-Deploy targets are configured in `targets.json`. GitHub Pages builds with
-`STATIC_EXPORT=1 BASE_PATH=/edge-bench` (see the workflow); the other platforms
-build the repo as a normal Next.js app with zero special configuration.
+Deploy targets are configured in `targets.json`. Every platform deploys on
+push: Vercel and Netlify through their git integrations, GitHub Pages via the
+workflow (`STATIC_EXPORT=1 BASE_PATH=/edge-bench`), and Cloudflare through
+Workers Builds with build command `npx opennextjs-cloudflare build` and deploy
+command `npx opennextjs-cloudflare deploy` (set under the Worker's Settings →
+Build — see `wrangler.jsonc`).
 
 Not affiliated with any platform shown.
