@@ -16,10 +16,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Runs a measurement round and force-pushes the accumulated results to the
-  # `data` branch. Nothing is committed to main, so scheduled rounds never
-  # trigger platform rebuilds — the dashboard fetches the summary from the
-  # data branch at runtime.
+  # Runs a measurement round and commits the results to the separate
+  # edge-bench-data repo. This repo never receives data pushes, so rounds
+  # cannot trigger platform builds or preview deployments — the dashboard
+  # fetches summary.json from the data repo at runtime.
   collect:
     runs-on: ubuntu-latest
     steps:
@@ -29,10 +29,17 @@ jobs:
         with:
           node-version: 22
 
-      - name: Restore accumulated data
+      - name: Check out the data repo
+        env:
+          KEY: ${{ secrets.DATA_DEPLOY_KEY }}
         run: |
-          git fetch origin data || true
-          git checkout origin/data -- data public/data 2>/dev/null || echo "no data branch yet — starting fresh"
+          mkdir -p ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+          git clone --depth 1 git@github.com:JonathanSeriesX/edge-bench-data.git /tmp/edge-bench-data
+          mkdir -p data public/data
+          cp /tmp/edge-bench-data/raw/*.ndjson data/ 2>/dev/null || true
 
       - name: Run a measurement round
         env:
@@ -42,16 +49,16 @@ jobs:
       - name: Aggregate
         run: node collector/aggregate.mjs
 
-      - name: Push results to the data branch
-        # The branch is a single rolling commit on top of main; the NDJSON
-        # files inside it are cumulative, so the full history lives in the
-        # data itself rather than in git commits.
+      - name: Commit results to the data repo
         run: |
+          cp data/*.ndjson /tmp/edge-bench-data/raw/
+          cp public/data/summary.json /tmp/edge-bench-data/summary.json
+          cd /tmp/edge-bench-data
           git config user.name  "edge-bench"
           git config user.email "edge-bench@users.noreply.github.com"
-          git add -f data public/data
-          git commit -m "data: round $(date -u +%FT%TZ)"
-          git push --force origin HEAD:refs/heads/data
+          git add -A
+          git diff --quiet --cached || git commit -m "round $(date -u +%FT%TZ)"
+          git push
 
   # Rebuilds the GitHub Pages dashboard. Only needed when code changes — data
   # is fetched at runtime, so scheduled rounds don't require a redeploy.

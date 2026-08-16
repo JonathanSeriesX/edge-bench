@@ -73,8 +73,7 @@ measures whose nameserver was cold.
 | `app/`, `lib/` | The Next.js app: dashboard page + `/bench/now` route |
 | `targets.json` | Platforms, probe locations, scenarios |
 | `collector/` | Runs rounds against the Globalping API, aggregates NDJSON |
-| `data/` | Raw measurements, one JSON object per probe per platform per round |
-| `public/data/summary.json` | The rollup the dashboard renders |
+| [`edge-bench-data`](https://github.com/JonathanSeriesX/edge-bench-data) | Separate repo: raw measurements + the rollup, one commit per round — kept apart so rounds never trigger app deploys |
 | `rum/` | Optional real-user measurement layer (not yet deployed) |
 
 ## Running it yourself
