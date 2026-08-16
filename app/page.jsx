@@ -13,8 +13,6 @@ export default function Page() {
         <p className="meta" id="meta">Loading…</p>
       </header>
 
-      <div id="notice"></div>
-
       <div className="tabs" id="tabs" role="tablist"></div>
       <p className="sub" id="scenario-note" style={{ marginTop: 10 }}></p>
 

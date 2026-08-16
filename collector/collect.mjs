@@ -20,27 +20,20 @@ const rows = [];
 let probeSetRef = config.probeSet.locations;
 let remaining = Infinity;
 
-// Until the payload is deployed there is nothing to hit but each vendor's
-// front page, so the scenarios would all be the same request. Run just one.
-const scenarios = config.controlled ? config.scenarios : config.scenarios.slice(0, 1);
-const jobs = config.platforms.flatMap((platform) => {
-  if (config.controlled && platform.controlledHost.includes('REPLACE-ME')) {
-    console.warn(`  skipping ${platform.id}: controlledHost not configured yet`);
-    return [];
-  }
-  return scenarios
+const jobs = config.platforms.flatMap((platform) =>
+  config.scenarios
     // Platforms without serverless support (e.g. GitHub Pages) sit out the
     // function scenario instead of being benchmarked on their 404 page.
     .filter((scenario) => scenario.id !== 'function' || platform.functions !== false)
-    .map((scenario) => ({ platform, scenario }));
-});
+    .map((scenario) => ({ platform, scenario }))
+);
 
-console.log(`round ${round} — ${jobs.length} measurements, controlled=${config.controlled}`);
+console.log(`round ${round} — ${jobs.length} measurements`);
 
 for (const { platform, scenario } of jobs) {
-  const target = config.controlled ? platform.controlledHost : platform.host;
+  const target = platform.host;
   // GitHub project Pages serve under /<repo>/, so the path gets a per-platform prefix.
-  const path = config.controlled ? (platform.pathPrefix ?? '') + scenario.path : '/';
+  const path = (platform.pathPrefix ?? '') + scenario.path;
 
   try {
     const { id, remaining: left } = await create({
@@ -81,7 +74,6 @@ function toRow({ entry, platform, scenario, target, path }) {
     scenario: scenario.id,
     target,
     path,
-    controlled: config.controlled,
     probe: {
       city: probe.city,
       country: probe.country,

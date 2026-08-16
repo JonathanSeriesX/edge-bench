@@ -1,8 +1,6 @@
 {
-  "$comment": "Set controlled:true once you deploy payload/ to the platform and point the URLs at your own deployment. Until then the collector measures each vendor's marketing site, which is NOT apples-to-apples and the site will say so.",
-  "controlled": true,
   "probeSet": {
-    "$comment": "One entry per measurement location. Total tests per round = probeSet.length * platforms.length * scenarios.length. Unauthenticated limit is 250 tests/hour, 500 when authenticated.",
+    "$comment": "One entry per measurement location. Total tests per round = locations * platforms * scenarios. Globalping allows 250 tests/hour unauthenticated, 500 with a token.",
     "locations": [
       {
         "continent": "NA",
@@ -60,14 +58,14 @@
     {
       "id": "static",
       "label": "Static asset (CDN edge)",
-      "description": "The prerendered dashboard page itself, served from each platform\u2019s CDN edge.",
+      "description": "The prerendered dashboard page itself, served from each platform’s CDN edge.",
       "path": "/",
       "method": "GET"
     },
     {
       "id": "function",
       "label": "Serverless / edge function",
-      "description": "A trivial dynamic route. Vercel and Netlify run it in a single default region (iad1 / us-east-2); Cloudflare runs it at every edge location \u2014 distance to that one region is part of what you see.",
+      "description": "A trivial dynamic route. Vercel and Netlify run it in a single default region; Cloudflare runs it at every edge location — distance to that one region is part of what you see.",
       "path": "/bench/now",
       "method": "GET"
     }
@@ -77,9 +75,8 @@
       "id": "vercel",
       "label": "Vercel",
       "color": "#2a78d6",
-      "host": "vercel.com",
-      "controlledHost": "edge-bench-kappa.vercel.app",
       "colorDark": "#3987e5",
+      "host": "edge-bench-kappa.vercel.app",
       "functions": true,
       "functionRegion": "iad1 (Washington DC)"
     },
@@ -87,9 +84,8 @@
       "id": "netlify",
       "label": "Netlify",
       "color": "#eb6834",
-      "host": "netlify.com",
-      "controlledHost": "edge-bench.netlify.app",
       "colorDark": "#d95926",
+      "host": "edge-bench.netlify.app",
       "functions": true,
       "functionRegion": "us-east-2 (Ohio)"
     },
@@ -97,9 +93,8 @@
       "id": "cloudflare",
       "label": "Cloudflare",
       "color": "#1baf7a",
-      "host": "pages.dev",
-      "controlledHost": "edge-bench.jonathan-world.workers.dev",
       "colorDark": "#199e70",
+      "host": "edge-bench.jonathan-world.workers.dev",
       "functions": true,
       "functionRegion": "every edge location"
     },
@@ -107,9 +102,8 @@
       "id": "github",
       "label": "GitHub Pages",
       "color": "#eda100",
-      "host": "pages.github.com",
-      "controlledHost": "jonathanseriesx.github.io",
       "colorDark": "#c98500",
+      "host": "jonathanseriesx.github.io",
       "pathPrefix": "/edge-bench",
       "functions": false,
       "functionRegion": null

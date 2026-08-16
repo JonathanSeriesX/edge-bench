@@ -1,17 +1,21 @@
-// Optional real-user layer: measures the same payload from whatever network the
-// visitor is actually on. Datacenter probes have great transit and report a
-// floor; this reports what people get. Drop it on any page:
-//
-//   <script type="module" src="https://your-site/rum.js"></script>
+// Real-user layer: measures the same payload from whatever network the visitor
+// is actually on. Datacenter probes have great transit and report a floor;
+// this reports what people get. Imported by the dashboard after the charts
+// have rendered (see app/dashboard-loader.jsx).
 //
 // The endpoints must send `Timing-Allow-Origin: *` or the browser zeroes out
-// every phase but the total — payload/_headers already does.
+// every phase but the total — next.config.mjs sets it for the server
+// platforms. GitHub Pages cannot set headers, so its samples only come from
+// visitors of the Pages deployment itself (same-origin needs no TAO).
 
-const ENDPOINT = 'https://edge-bench-rum.YOUR-SUBDOMAIN.workers.dev/beacon';
-const SAMPLE_RATE = 0.25; // fraction of page views that measure at all
+const ENDPOINT = 'https://edge-bench-rum.jonathan-world.workers.dev/beacon';
+// Traffic is a trickle, the per-view cost is four small fetches after load,
+// and Analytics Engine is nowhere near its free-tier limits — sample every
+// view until traffic justifies dialing this down.
+const SAMPLE_RATE = 1;
 const TARGETS = {
   vercel: 'https://edge-bench-kappa.vercel.app/',
-  netlify: 'https://REPLACE-ME.netlify.app/',
+  netlify: 'https://edge-bench.netlify.app/',
   cloudflare: 'https://edge-bench.jonathan-world.workers.dev/',
   github: 'https://jonathanseriesx.github.io/edge-bench/',
 };

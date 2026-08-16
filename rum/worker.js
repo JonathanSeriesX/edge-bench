@@ -1,14 +1,6 @@
-// Collector for the real-user layer. Deploy with `wrangler deploy` from rum/.
+// Collector for the real-user layer (see wrangler.jsonc next to this file).
 // Writes to Workers Analytics Engine, which is free-tier friendly and made for
-// exactly this shape of data.
-//
-// wrangler.toml:
-//   name = "edge-bench-rum"
-//   main = "worker.js"
-//   compatibility_date = "2026-01-01"
-//   [[analytics_engine_datasets]]
-//   binding = "RUM"
-//   dataset = "edge_bench_rum"
+// exactly this shape of data. Deploy: npx wrangler deploy -c rum/wrangler.jsonc
 
 const CORS = {
   'access-control-allow-origin': '*',

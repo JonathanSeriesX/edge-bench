@@ -61,10 +61,10 @@ function rollup(subset, keyFn, valueFn = (r) => r.connectTtfb) {
 const summary = {
   generatedAt: new Date().toISOString(),
   windowDays: WINDOW_DAYS,
-  controlled: rows.length ? rows.every((r) => r.controlled) : config.controlled,
   totalSamples: rows.length,
   rounds: new Set(rows.map((r) => r.round)).size,
-  platforms: config.platforms.map(({ id, label, color, colorDark, functionRegion }) => ({ id, label, color, colorDark, functionRegion })),
+  platforms: config.platforms.map(({ id, label, color, colorDark, functionRegion, host, pathPrefix, functions }) =>
+    ({ id, label, color, colorDark, functionRegion, host, pathPrefix: pathPrefix ?? '', functions: functions !== false })),
   scenarios: config.scenarios.map(({ id, label, description }) => ({ id, label, description })),
   byScenario: {},
   timeline: [],

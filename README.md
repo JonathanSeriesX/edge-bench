@@ -63,6 +63,11 @@ measures whose nameserver was cold.
   platforms.
 - Cloudflare runs Next.js on workerd (`nodejs_compat`), not Node itself —
   that *is* their platform offering, so that is what gets measured.
+- One disclosed deviation from defaults: OpenNext's default Cloudflare setup
+  re-renders the prerendered page in the Worker on every request. We enable
+  its static-assets incremental cache + cache interception
+  (`open-next.config.ts`) so `/` is served as the prerendered asset it is —
+  otherwise the static scenario would measure Worker SSR, not CDN delivery.
 - Latency is one axis. Build times, DX, pricing and lock-in are not measured
   here and matter more for most decisions.
 
@@ -74,7 +79,7 @@ measures whose nameserver was cold.
 | `targets.json` | Platforms, probe locations, scenarios |
 | `collector/` | Runs rounds against the Globalping API, aggregates NDJSON |
 | [`edge-bench-data`](https://github.com/JonathanSeriesX/edge-bench-data) | Separate repo: raw measurements + the rollup, one commit per round — kept apart so rounds never trigger app deploys |
-| `rum/` | Optional real-user measurement layer (not yet deployed) |
+| `rum/` | Real-user measurement layer: the dashboard quietly re-fetches each platform from visitors' browsers and beacons timings (no identifiers) to a Worker backed by Analytics Engine |
 
 ## Running it yourself
 

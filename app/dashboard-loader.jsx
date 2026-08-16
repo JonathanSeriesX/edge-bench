@@ -6,6 +6,9 @@ import { initDashboard } from '../lib/dashboard';
 export default function DashboardLoader() {
   useEffect(() => {
     initDashboard();
+    // The RUM client self-gates on import (sample rate, saveData, page load)
+    // and measures the platforms from this visitor's own network.
+    import('../rum/client.js');
   }, []);
   return null;
 }

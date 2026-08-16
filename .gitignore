@@ -6,6 +6,5 @@ node_modules/
 .next/
 out/
 .open-next/
-.vercel
 data/
 public/data/

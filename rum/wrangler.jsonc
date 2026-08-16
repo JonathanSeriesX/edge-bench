@@ -1,0 +1,14 @@
+{
+  // The real-user beacon collector. Deploy from the repo root:
+  //   npx wrangler deploy -c rum/wrangler.jsonc
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "edge-bench-rum",
+  "main": "worker.js",
+  "compatibility_date": "2026-01-01",
+  "analytics_engine_datasets": [
+    {
+      "binding": "RUM",
+      "dataset": "edge_bench_rum"
+    }
+  ]
+}
