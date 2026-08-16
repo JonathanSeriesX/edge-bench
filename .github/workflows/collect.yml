@@ -62,9 +62,20 @@ jobs:
           # The collect job just pushed a data commit; deploy that, not the
           # commit that triggered the workflow.
           ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build static export
+        # GitHub Pages cannot run the /bench/now function, and force-dynamic
+        # routes cannot be statically exported — drop the route for this build.
+        run: |
+          rm -rf app/bench
+          STATIC_EXPORT=1 BASE_PATH=/edge-bench pnpm build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: out
       - id: deployment
         uses: actions/deploy-pages@v4

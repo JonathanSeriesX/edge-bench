@@ -12,8 +12,8 @@ const SAMPLE_RATE = 0.25; // fraction of page views that measure at all
 const TARGETS = {
   vercel: 'https://edge-bench-kappa.vercel.app/',
   netlify: 'https://REPLACE-ME.netlify.app/',
-  cloudflare: 'https://edge-bench.pages.dev/',
-  github: 'https://jonathanseriesx.github.io/edge-bench-payload/',
+  cloudflare: 'https://edge-bench.jonathan-world.workers.dev/',
+  github: 'https://jonathanseriesx.github.io/edge-bench/',
 };
 
 if (Math.random() < SAMPLE_RATE && navigator.connection?.saveData !== true) {

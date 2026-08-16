@@ -5,12 +5,24 @@
   "type": "module",
   "description": "Free, continuous, open-data latency benchmark of static hosting platforms, measured from real probes worldwide.",
   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "collect": "node collector/collect.mjs",
     "aggregate": "node collector/aggregate.mjs",
-    "round": "node collector/collect.mjs && node collector/aggregate.mjs",
-    "dev": "node scripts/serve.mjs"
+    "round": "node collector/collect.mjs && node collector/aggregate.mjs"
   },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "next": "^16.3.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "packageManager": "pnpm@11.22.0",
+  "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.2",
+    "wrangler": "^4.123.0"
   }
 }

@@ -1,0 +1,13 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // The same app builds two ways:
+  //  - server mode (default) on Vercel / Netlify / Cloudflare, where
+  //    app/bench/now runs as a real function
+  //  - static export for GitHub Pages (STATIC_EXPORT=1 in the workflow, which
+  //    also removes app/bench — force-dynamic routes cannot be exported)
+  output: process.env.STATIC_EXPORT ? 'export' : undefined,
+  // GitHub project Pages serve under /<repo>; everything else serves at root.
+  basePath: process.env.BASE_PATH || undefined,
+};
+
+export default nextConfig;

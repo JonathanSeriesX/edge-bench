@@ -119,6 +119,6 @@ summary.timeline = hours.map((hour) => ({
   ),
 }));
 
-await mkdir(join(root, 'site', 'data'), { recursive: true });
-await writeFile(join(root, 'site', 'data', 'summary.json'), JSON.stringify(summary, null, 1));
-console.log(`aggregated ${rows.length} samples from ${summary.rounds} rounds -> site/data/summary.json`);
+await mkdir(join(root, 'public', 'data'), { recursive: true });
+await writeFile(join(root, 'public', 'data', 'summary.json'), JSON.stringify(summary, null, 1));
+console.log(`aggregated ${rows.length} samples from ${summary.rounds} rounds -> public/data/summary.json`);

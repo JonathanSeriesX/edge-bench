@@ -93,10 +93,10 @@
     },
     {
       "id": "cloudflare",
-      "label": "Cloudflare Pages",
+      "label": "Cloudflare",
       "color": "#1baf7a",
       "host": "pages.dev",
-      "controlledHost": "edge-bench.pages.dev",
+      "controlledHost": "edge-bench.jonathan-world.workers.dev",
       "colorDark": "#199e70",
       "functions": true
     },
@@ -107,7 +107,7 @@
       "host": "pages.github.com",
       "controlledHost": "jonathanseriesx.github.io",
       "colorDark": "#c98500",
-      "pathPrefix": "/edge-bench-payload",
+      "pathPrefix": "/edge-bench",
       "functions": false
     }
   ],
