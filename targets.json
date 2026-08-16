@@ -1,0 +1,123 @@
+{
+  "$comment": "Set controlled:true once you deploy payload/ to the platform and point the URLs at your own deployment. Until then the collector measures each vendor's marketing site, which is NOT apples-to-apples and the site will say so.",
+  "controlled": true,
+  "probeSet": {
+    "$comment": "One entry per measurement location. Total tests per round = probeSet.length * platforms.length * scenarios.length. Unauthenticated limit is 250 tests/hour, 500 when authenticated.",
+    "locations": [
+      {
+        "continent": "NA",
+        "country": "US",
+        "limit": 1
+      },
+      {
+        "continent": "NA",
+        "country": "CA",
+        "limit": 1
+      },
+      {
+        "continent": "SA",
+        "country": "BR",
+        "limit": 1
+      },
+      {
+        "continent": "EU",
+        "country": "GB",
+        "limit": 1
+      },
+      {
+        "continent": "EU",
+        "country": "DE",
+        "limit": 1
+      },
+      {
+        "continent": "AS",
+        "country": "IN",
+        "limit": 1
+      },
+      {
+        "continent": "AS",
+        "country": "JP",
+        "limit": 1
+      },
+      {
+        "continent": "AS",
+        "country": "SG",
+        "limit": 1
+      },
+      {
+        "continent": "OC",
+        "country": "AU",
+        "limit": 1
+      },
+      {
+        "continent": "AF",
+        "country": "ZA",
+        "limit": 1
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "static",
+      "label": "Static asset (CDN edge)",
+      "description": "Identical 12 KB text file with long-lived cache headers. Measures pure CDN delivery.",
+      "path": "/bench/static.txt",
+      "method": "GET"
+    },
+    {
+      "id": "function",
+      "label": "Serverless / edge function",
+      "description": "Uncached dynamic endpoint that echoes the region and a timestamp. Measures compute + cold starts.",
+      "path": "/bench/now",
+      "method": "GET"
+    }
+  ],
+  "platforms": [
+    {
+      "id": "vercel",
+      "label": "Vercel",
+      "color": "#2a78d6",
+      "host": "vercel.com",
+      "controlledHost": "edge-bench-sobachenka.vercel.app",
+      "colorDark": "#3987e5",
+      "functions": true
+    },
+    {
+      "id": "netlify",
+      "label": "Netlify",
+      "color": "#eb6834",
+      "host": "netlify.com",
+      "controlledHost": "REPLACE-ME.netlify.app",
+      "colorDark": "#d95926",
+      "functions": true
+    },
+    {
+      "id": "cloudflare",
+      "label": "Cloudflare Pages",
+      "color": "#1baf7a",
+      "host": "pages.dev",
+      "controlledHost": "edge-bench.pages.dev",
+      "colorDark": "#199e70",
+      "functions": true
+    },
+    {
+      "id": "github",
+      "label": "GitHub Pages",
+      "color": "#eda100",
+      "host": "pages.github.com",
+      "controlledHost": "jonathanseriesx.github.io",
+      "colorDark": "#c98500",
+      "pathPrefix": "/edge-bench-payload",
+      "functions": false
+    }
+  ],
+  "cacheHeaders": [
+    "x-vercel-cache",
+    "cf-cache-status",
+    "cache-status",
+    "x-nf-request-id",
+    "age",
+    "server",
+    "x-served-by"
+  ]
+}

@@ -1,0 +1,43 @@
+name: collect
+
+on:
+  schedule:
+    # Hourly. One round is platforms x scenarios x probes tests; with the
+    # current config (4 platforms, GitHub static-only) that is 70 tests/hour —
+    # comfortably inside the 250/hour unauthenticated cap.
+    - cron: '3 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run a measurement round
+        env:
+          GLOBALPING_TOKEN: ${{ secrets.GLOBALPING_TOKEN }}
+        run: node collector/collect.mjs
+
+      - name: Aggregate
+        run: node collector/aggregate.mjs
+
+      - name: Commit results
+        run: |
+          git config user.name  "edge-bench"
+          git config user.email "edge-bench@users.noreply.github.com"
+          git add data site/data
+          git diff --quiet --cached || git commit -m "data: round $(date -u +%FT%TZ)"
+          git pull --rebase --autostash
+          git push

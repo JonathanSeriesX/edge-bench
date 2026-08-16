@@ -1,0 +1,17 @@
+{
+  "name": "edge-bench",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Free, continuous, open-data latency benchmark of static hosting platforms, measured from real probes worldwide.",
+  "scripts": {
+    "payload": "node payload/build.mjs",
+    "collect": "node collector/collect.mjs",
+    "aggregate": "node collector/aggregate.mjs",
+    "round": "node collector/collect.mjs && node collector/aggregate.mjs",
+    "dev": "node scripts/serve.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,22 @@
+[build]
+  publish = "public"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/bench/now"
+  to = "/.netlify/functions/now"
+  status = 200
+
+[[headers]]
+  for = "/bench/static.txt"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Timing-Allow-Origin = "*"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/bench/now"
+  [headers.values]
+    Cache-Control = "no-store"
+    Timing-Allow-Origin = "*"
+    Access-Control-Allow-Origin = "*"

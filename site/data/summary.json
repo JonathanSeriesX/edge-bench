@@ -1,0 +1,768 @@
+{
+ "generatedAt": "2026-08-16T15:23:03.058Z",
+ "windowDays": 7,
+ "controlled": false,
+ "totalSamples": 195,
+ "rounds": 4,
+ "platforms": [
+  {
+   "id": "vercel",
+   "label": "Vercel",
+   "color": "#2a78d6",
+   "colorDark": "#3987e5"
+  },
+  {
+   "id": "netlify",
+   "label": "Netlify",
+   "color": "#eb6834",
+   "colorDark": "#d95926"
+  },
+  {
+   "id": "cloudflare",
+   "label": "Cloudflare Pages",
+   "color": "#1baf7a",
+   "colorDark": "#199e70"
+  },
+  {
+   "id": "github",
+   "label": "GitHub Pages",
+   "color": "#eda100",
+   "colorDark": "#c98500"
+  },
+  {
+   "id": "render",
+   "label": "Render",
+   "color": "#e87ba4",
+   "colorDark": "#d55181"
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "static",
+   "label": "Static asset (CDN edge)",
+   "description": "Identical 12 KB HTML file with long-lived cache headers. Measures pure CDN delivery."
+  },
+  {
+   "id": "function",
+   "label": "Serverless / edge function",
+   "description": "Uncached dynamic endpoint that echoes the region and a timestamp. Measures compute + cold starts."
+  }
+ ],
+ "byScenario": {
+  "static": {
+   "overall": {
+    "vercel": {
+     "n": 39,
+     "p50": 60,
+     "p75": 112,
+     "p95": 309,
+     "p99": 624
+    },
+    "netlify": {
+     "n": 39,
+     "p50": 41,
+     "p75": 60,
+     "p95": 143,
+     "p99": 523
+    },
+    "cloudflare": {
+     "n": 39,
+     "p50": 20,
+     "p75": 27,
+     "p95": 46,
+     "p99": 4066
+    },
+    "github": {
+     "n": 39,
+     "p50": 11,
+     "p75": 19,
+     "p95": 79,
+     "p99": 199
+    },
+    "render": {
+     "n": 39,
+     "p50": 278,
+     "p75": 384,
+     "p95": 788,
+     "p99": 4645
+    }
+   },
+   "byContinent": {
+    "vercel|NA": {
+     "n": 8,
+     "p50": 92,
+     "p75": 198,
+     "p95": 360,
+     "p99": 386
+    },
+    "vercel|SA": {
+     "n": 4,
+     "p50": 47,
+     "p75": 57,
+     "p95": 65,
+     "p99": 67
+    },
+    "vercel|EU": {
+     "n": 8,
+     "p50": 104,
+     "p75": 118,
+     "p95": 200,
+     "p99": 234
+    },
+    "vercel|AS": {
+     "n": 11,
+     "p50": 50,
+     "p75": 56,
+     "p95": 62,
+     "p99": 63
+    },
+    "vercel|OC": {
+     "n": 4,
+     "p50": 75,
+     "p75": 118,
+     "p95": 136,
+     "p99": 139
+    },
+    "vercel|AF": {
+     "n": 4,
+     "p50": 89,
+     "p75": 286,
+     "p95": 670,
+     "p99": 747
+    },
+    "netlify|NA": {
+     "n": 8,
+     "p50": 93,
+     "p75": 117,
+     "p95": 140,
+     "p99": 144
+    },
+    "netlify|SA": {
+     "n": 4,
+     "p50": 25,
+     "p75": 35,
+     "p95": 37,
+     "p99": 37
+    },
+    "netlify|EU": {
+     "n": 8,
+     "p50": 46,
+     "p75": 58,
+     "p95": 80,
+     "p99": 88
+    },
+    "netlify|AS": {
+     "n": 11,
+     "p50": 39,
+     "p75": 42,
+     "p95": 50,
+     "p99": 51
+    },
+    "netlify|OC": {
+     "n": 4,
+     "p50": 39,
+     "p75": 41,
+     "p95": 43,
+     "p99": 44
+    },
+    "netlify|AF": {
+     "n": 4,
+     "p50": 92,
+     "p75": 296,
+     "p95": 663,
+     "p99": 737
+    },
+    "cloudflare|NA": {
+     "n": 8,
+     "p50": 22,
+     "p75": 28,
+     "p95": 56,
+     "p99": 67
+    },
+    "cloudflare|SA": {
+     "n": 4,
+     "p50": 14,
+     "p75": 15,
+     "p95": 16,
+     "p99": 16
+    },
+    "cloudflare|EU": {
+     "n": 8,
+     "p50": 27,
+     "p75": 40,
+     "p95": 4250,
+     "p99": 6062
+    },
+    "cloudflare|AS": {
+     "n": 11,
+     "p50": 21,
+     "p75": 26,
+     "p95": 32,
+     "p99": 34
+    },
+    "cloudflare|OC": {
+     "n": 4,
+     "p50": 16,
+     "p75": 16,
+     "p95": 16,
+     "p99": 16
+    },
+    "cloudflare|AF": {
+     "n": 4,
+     "p50": 19,
+     "p75": 25,
+     "p95": 27,
+     "p99": 27
+    },
+    "github|NA": {
+     "n": 8,
+     "p50": 13,
+     "p75": 33,
+     "p95": 92,
+     "p99": 99
+    },
+    "github|SA": {
+     "n": 4,
+     "p50": 10,
+     "p75": 10,
+     "p95": 10,
+     "p99": 10
+    },
+    "github|EU": {
+     "n": 8,
+     "p50": 34,
+     "p75": 59,
+     "p95": 71,
+     "p99": 74
+    },
+    "github|AS": {
+     "n": 11,
+     "p50": 11,
+     "p75": 12,
+     "p95": 14,
+     "p99": 14
+    },
+    "github|OC": {
+     "n": 4,
+     "p50": 9,
+     "p75": 9,
+     "p95": 10,
+     "p99": 10
+    },
+    "github|AF": {
+     "n": 4,
+     "p50": 26,
+     "p75": 84,
+     "p95": 224,
+     "p99": 252
+    },
+    "render|NA": {
+     "n": 8,
+     "p50": 169,
+     "p75": 301,
+     "p95": 587,
+     "p99": 709
+    },
+    "render|SA": {
+     "n": 4,
+     "p50": 252,
+     "p75": 268,
+     "p95": 279,
+     "p99": 281
+    },
+    "render|EU": {
+     "n": 8,
+     "p50": 271,
+     "p75": 372,
+     "p95": 4559,
+     "p99": 6301
+    },
+    "render|AS": {
+     "n": 11,
+     "p50": 278,
+     "p75": 460,
+     "p95": 692,
+     "p99": 706
+    },
+    "render|OC": {
+     "n": 4,
+     "p50": 317,
+     "p75": 446,
+     "p95": 627,
+     "p99": 663
+    },
+    "render|AF": {
+     "n": 4,
+     "p50": 351,
+     "p75": 577,
+     "p95": 1100,
+     "p99": 1205
+    }
+   },
+   "byCountry": {
+    "vercel|US": {
+     "n": 4,
+     "p50": 86,
+     "p75": 143,
+     "p95": 269,
+     "p99": 294
+    },
+    "vercel|CA": {
+     "n": 4,
+     "p50": 128,
+     "p75": 221,
+     "p95": 358,
+     "p99": 385
+    },
+    "vercel|BR": {
+     "n": 4,
+     "p50": 47,
+     "p75": 57,
+     "p95": 65,
+     "p99": 67
+    },
+    "vercel|GB": {
+     "n": 4,
+     "p50": 70,
+     "p75": 94,
+     "p95": 94,
+     "p99": 94
+    },
+    "vercel|DE": {
+     "n": 4,
+     "p50": 119,
+     "p75": 152,
+     "p95": 224,
+     "p99": 238
+    },
+    "vercel|JP": {
+     "n": 4,
+     "p50": 50,
+     "p75": 51,
+     "p95": 53,
+     "p99": 53
+    },
+    "vercel|SG": {
+     "n": 4,
+     "p50": 56,
+     "p75": 59,
+     "p95": 62,
+     "p99": 63
+    },
+    "vercel|AU": {
+     "n": 4,
+     "p50": 75,
+     "p75": 118,
+     "p95": 136,
+     "p99": 139
+    },
+    "vercel|ZA": {
+     "n": 4,
+     "p50": 89,
+     "p75": 286,
+     "p95": 670,
+     "p99": 747
+    },
+    "netlify|US": {
+     "n": 4,
+     "p50": 93,
+     "p75": 110,
+     "p95": 128,
+     "p99": 131
+    },
+    "netlify|CA": {
+     "n": 4,
+     "p50": 85,
+     "p75": 120,
+     "p95": 140,
+     "p99": 144
+    },
+    "netlify|BR": {
+     "n": 4,
+     "p50": 25,
+     "p75": 35,
+     "p95": 37,
+     "p99": 37
+    },
+    "netlify|GB": {
+     "n": 4,
+     "p50": 43,
+     "p75": 56,
+     "p95": 83,
+     "p99": 89
+    },
+    "netlify|DE": {
+     "n": 4,
+     "p50": 52,
+     "p75": 58,
+     "p95": 61,
+     "p99": 62
+    },
+    "netlify|JP": {
+     "n": 4,
+     "p50": 42,
+     "p75": 45,
+     "p95": 48,
+     "p99": 49
+    },
+    "netlify|SG": {
+     "n": 4,
+     "p50": 34,
+     "p75": 39,
+     "p95": 49,
+     "p99": 51
+    },
+    "netlify|AU": {
+     "n": 4,
+     "p50": 39,
+     "p75": 41,
+     "p95": 43,
+     "p99": 44
+    },
+    "netlify|ZA": {
+     "n": 4,
+     "p50": 92,
+     "p75": 296,
+     "p95": 663,
+     "p99": 737
+    },
+    "cloudflare|US": {
+     "n": 4,
+     "p50": 21,
+     "p75": 22,
+     "p95": 23,
+     "p99": 23
+    },
+    "cloudflare|CA": {
+     "n": 4,
+     "p50": 29,
+     "p75": 41,
+     "p95": 64,
+     "p99": 69
+    },
+    "cloudflare|BR": {
+     "n": 4,
+     "p50": 14,
+     "p75": 15,
+     "p95": 16,
+     "p99": 16
+    },
+    "cloudflare|GB": {
+     "n": 4,
+     "p50": 18,
+     "p75": 19,
+     "p95": 20,
+     "p99": 20
+    },
+    "cloudflare|DE": {
+     "n": 4,
+     "p50": 41,
+     "p75": 1661,
+     "p95": 5544,
+     "p99": 6321
+    },
+    "cloudflare|JP": {
+     "n": 4,
+     "p50": 24,
+     "p75": 31,
+     "p95": 34,
+     "p99": 35
+    },
+    "cloudflare|SG": {
+     "n": 4,
+     "p50": 21,
+     "p75": 26,
+     "p95": 27,
+     "p99": 27
+    },
+    "cloudflare|AU": {
+     "n": 4,
+     "p50": 16,
+     "p75": 16,
+     "p95": 16,
+     "p99": 16
+    },
+    "cloudflare|ZA": {
+     "n": 4,
+     "p50": 19,
+     "p75": 25,
+     "p95": 27,
+     "p99": 27
+    },
+    "github|US": {
+     "n": 4,
+     "p50": 17,
+     "p75": 33,
+     "p95": 67,
+     "p99": 74
+    },
+    "github|CA": {
+     "n": 4,
+     "p50": 9,
+     "p75": 32,
+     "p95": 87,
+     "p99": 98
+    },
+    "github|BR": {
+     "n": 4,
+     "p50": 10,
+     "p75": 10,
+     "p95": 10,
+     "p99": 10
+    },
+    "github|GB": {
+     "n": 4,
+     "p50": 10,
+     "p75": 12,
+     "p95": 14,
+     "p99": 15
+    },
+    "github|DE": {
+     "n": 4,
+     "p50": 61,
+     "p75": 67,
+     "p95": 73,
+     "p99": 75
+    },
+    "github|JP": {
+     "n": 4,
+     "p50": 13,
+     "p75": 13,
+     "p95": 14,
+     "p99": 14
+    },
+    "github|SG": {
+     "n": 4,
+     "p50": 9,
+     "p75": 10,
+     "p95": 11,
+     "p99": 11
+    },
+    "github|AU": {
+     "n": 4,
+     "p50": 9,
+     "p75": 9,
+     "p95": 10,
+     "p99": 10
+    },
+    "github|ZA": {
+     "n": 4,
+     "p50": 26,
+     "p75": 84,
+     "p95": 224,
+     "p99": 252
+    },
+    "render|US": {
+     "n": 4,
+     "p50": 158,
+     "p75": 235,
+     "p95": 291,
+     "p99": 302
+    },
+    "render|CA": {
+     "n": 4,
+     "p50": 213,
+     "p75": 409,
+     "p95": 673,
+     "p99": 726
+    },
+    "render|BR": {
+     "n": 4,
+     "p50": 252,
+     "p75": 268,
+     "p95": 279,
+     "p99": 281
+    },
+    "render|GB": {
+     "n": 4,
+     "p50": 228,
+     "p75": 311,
+     "p95": 473,
+     "p99": 506
+    },
+    "render|DE": {
+     "n": 4,
+     "p50": 312,
+     "p75": 1927,
+     "p95": 5775,
+     "p99": 6545
+    },
+    "render|JP": {
+     "n": 4,
+     "p50": 166,
+     "p75": 230,
+     "p95": 371,
+     "p99": 399
+    },
+    "render|SG": {
+     "n": 4,
+     "p50": 325,
+     "p75": 475,
+     "p95": 662,
+     "p99": 700
+    },
+    "render|AU": {
+     "n": 4,
+     "p50": 317,
+     "p75": 446,
+     "p95": 627,
+     "p99": 663
+    },
+    "render|ZA": {
+     "n": 4,
+     "p50": 351,
+     "p75": 577,
+     "p95": 1100,
+     "p99": 1205
+    },
+    "vercel|IN": {
+     "n": 3,
+     "p50": 41,
+     "p75": 51,
+     "p95": 58,
+     "p99": 60
+    },
+    "netlify|IN": {
+     "n": 3,
+     "p50": 36,
+     "p75": 38,
+     "p95": 39,
+     "p99": 39
+    },
+    "cloudflare|IN": {
+     "n": 3,
+     "p50": 21,
+     "p75": 21,
+     "p95": 21,
+     "p99": 21
+    },
+    "github|IN": {
+     "n": 3,
+     "p50": 11,
+     "p75": 12,
+     "p95": 12,
+     "p99": 12
+    },
+    "render|IN": {
+     "n": 3,
+     "p50": 514,
+     "p75": 594,
+     "p95": 658,
+     "p99": 671
+    }
+   },
+   "phases": {
+    "vercel": {
+     "dns": 3,
+     "tcp": 2,
+     "tls": 10,
+     "firstByte": 47,
+     "download": 1
+    },
+    "netlify": {
+     "dns": 30,
+     "tcp": 2,
+     "tls": 7,
+     "firstByte": 30,
+     "download": 0
+    },
+    "cloudflare": {
+     "dns": 8,
+     "tcp": 2,
+     "tls": 10,
+     "firstByte": 7,
+     "download": 0
+    },
+    "github": {
+     "dns": 5,
+     "tcp": 1,
+     "tls": 6,
+     "firstByte": 3,
+     "download": 1
+    },
+    "render": {
+     "dns": 13,
+     "tcp": 2,
+     "tls": 11,
+     "firstByte": 253,
+     "download": 1
+    }
+   },
+   "errorRate": {
+    "vercel": 0,
+    "netlify": 0,
+    "cloudflare": 0,
+    "github": 0,
+    "render": 0
+   }
+  },
+  "function": {
+   "overall": {},
+   "byContinent": {},
+   "byCountry": {},
+   "phases": {
+    "vercel": {
+     "dns": null,
+     "tcp": null,
+     "tls": null,
+     "firstByte": null,
+     "download": null
+    },
+    "netlify": {
+     "dns": null,
+     "tcp": null,
+     "tls": null,
+     "firstByte": null,
+     "download": null
+    },
+    "cloudflare": {
+     "dns": null,
+     "tcp": null,
+     "tls": null,
+     "firstByte": null,
+     "download": null
+    },
+    "github": {
+     "dns": null,
+     "tcp": null,
+     "tls": null,
+     "firstByte": null,
+     "download": null
+    },
+    "render": {
+     "dns": null,
+     "tcp": null,
+     "tls": null,
+     "firstByte": null,
+     "download": null
+    }
+   },
+   "errorRate": {
+    "vercel": null,
+    "netlify": null,
+    "cloudflare": null,
+    "github": null,
+    "render": null
+   }
+  }
+ },
+ "timeline": [
+  {
+   "hour": "2026-08-16T14:00:00Z",
+   "vercel": 60,
+   "netlify": 43,
+   "cloudflare": 20,
+   "github": 11,
+   "render": 263
+  },
+  {
+   "hour": "2026-08-16T15:00:00Z",
+   "vercel": 53,
+   "netlify": 41,
+   "cloudflare": 19,
+   "github": 12,
+   "render": 291
+  }
+ ],
+ "probeCount": 18
+}
