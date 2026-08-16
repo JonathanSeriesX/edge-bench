@@ -16,6 +16,7 @@ export default function Page() {
       <div id="notice"></div>
 
       <div className="tabs" id="tabs" role="tablist"></div>
+      <p className="sub" id="scenario-note" style={{ marginTop: 10 }}></p>
 
       <section className="card">
         <h2>Time to first byte</h2>

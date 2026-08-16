@@ -187,3 +187,5 @@
 
   footer { margin-top: 40px; font-size: 13px; color: var(--text-muted); }
   a { color: inherit; }
+
+  #scenario-note { font-size: 13px; color: var(--text-muted); max-width: 72ch; margin: 10px 2px 0; }

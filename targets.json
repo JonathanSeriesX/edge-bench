@@ -60,14 +60,14 @@
     {
       "id": "static",
       "label": "Static asset (CDN edge)",
-      "description": "Identical 12 KB single-page site with long-lived cache headers. Measures pure CDN delivery.",
+      "description": "The prerendered dashboard page itself, served from each platform\u2019s CDN edge.",
       "path": "/",
       "method": "GET"
     },
     {
       "id": "function",
       "label": "Serverless / edge function",
-      "description": "Uncached dynamic endpoint that echoes the region and a timestamp. Measures compute + cold starts.",
+      "description": "A trivial dynamic route. Vercel and Netlify run it in a single default region (iad1 / us-east-2); Cloudflare runs it at every edge location \u2014 distance to that one region is part of what you see.",
       "path": "/bench/now",
       "method": "GET"
     }
@@ -80,16 +80,18 @@
       "host": "vercel.com",
       "controlledHost": "edge-bench-kappa.vercel.app",
       "colorDark": "#3987e5",
-      "functions": true
+      "functions": true,
+      "functionRegion": "iad1 (Washington DC)"
     },
     {
       "id": "netlify",
       "label": "Netlify",
       "color": "#eb6834",
       "host": "netlify.com",
-      "controlledHost": "REPLACE-ME.netlify.app",
+      "controlledHost": "edge-bench.netlify.app",
       "colorDark": "#d95926",
-      "functions": true
+      "functions": true,
+      "functionRegion": "us-east-2 (Ohio)"
     },
     {
       "id": "cloudflare",
@@ -98,7 +100,8 @@
       "host": "pages.dev",
       "controlledHost": "edge-bench.jonathan-world.workers.dev",
       "colorDark": "#199e70",
-      "functions": true
+      "functions": true,
+      "functionRegion": "every edge location"
     },
     {
       "id": "github",
@@ -108,7 +111,8 @@
       "controlledHost": "jonathanseriesx.github.io",
       "colorDark": "#c98500",
       "pathPrefix": "/edge-bench",
-      "functions": false
+      "functions": false,
+      "functionRegion": null
     }
   ],
   "cacheHeaders": [

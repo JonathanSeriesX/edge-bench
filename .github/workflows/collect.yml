@@ -6,11 +6,6 @@ on:
     - cron: '11 */6 * * *'
   push:
     branches: [main]
-    # Run a fresh round whenever code or config changes. The data commits this
-    # workflow makes itself only touch these paths, so they don't re-trigger it.
-    paths-ignore:
-      - 'data/**'
-      - 'site/data/**'
   workflow_dispatch:
 
 permissions:
@@ -21,6 +16,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Runs a measurement round and force-pushes the accumulated results to the
+  # `data` branch. Nothing is committed to main, so scheduled rounds never
+  # trigger platform rebuilds — the dashboard fetches the summary from the
+  # data branch at runtime.
   collect:
     runs-on: ubuntu-latest
     steps:
@@ -30,6 +29,11 @@ jobs:
         with:
           node-version: 22
 
+      - name: Restore accumulated data
+        run: |
+          git fetch origin data || true
+          git checkout origin/data -- data public/data 2>/dev/null || echo "no data branch yet — starting fresh"
+
       - name: Run a measurement round
         env:
           GLOBALPING_TOKEN: ${{ secrets.GLOBALPING_TOKEN }}
@@ -38,16 +42,21 @@ jobs:
       - name: Aggregate
         run: node collector/aggregate.mjs
 
-      - name: Commit results
+      - name: Push results to the data branch
+        # The branch is a single rolling commit on top of main; the NDJSON
+        # files inside it are cumulative, so the full history lives in the
+        # data itself rather than in git commits.
         run: |
           git config user.name  "edge-bench"
           git config user.email "edge-bench@users.noreply.github.com"
-          git add data public/data
-          git diff --quiet --cached || git commit -m "data: round $(date -u +%FT%TZ)"
-          git pull --rebase --autostash
-          git push
+          git add -f data public/data
+          git commit -m "data: round $(date -u +%FT%TZ)"
+          git push --force origin HEAD:refs/heads/data
 
+  # Rebuilds the GitHub Pages dashboard. Only needed when code changes — data
+  # is fetched at runtime, so scheduled rounds don't require a redeploy.
   publish:
+    if: github.event_name != 'schedule'
     needs: collect
     runs-on: ubuntu-latest
     permissions:
@@ -58,10 +67,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          # The collect job just pushed a data commit; deploy that, not the
-          # commit that triggered the workflow.
-          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 22
