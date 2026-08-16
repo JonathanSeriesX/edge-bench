@@ -60,8 +60,8 @@
     {
       "id": "static",
       "label": "Static asset (CDN edge)",
-      "description": "Identical 12 KB text file with long-lived cache headers. Measures pure CDN delivery.",
-      "path": "/bench/static.txt",
+      "description": "Identical 12 KB single-page site with long-lived cache headers. Measures pure CDN delivery.",
+      "path": "/",
       "method": "GET"
     },
     {
@@ -78,7 +78,7 @@
       "label": "Vercel",
       "color": "#2a78d6",
       "host": "vercel.com",
-      "controlledHost": "edge-bench-sobachenka.vercel.app",
+      "controlledHost": "edge-bench-kappa.vercel.app",
       "colorDark": "#3987e5",
       "functions": true
     },

@@ -2,10 +2,15 @@ name: collect
 
 on:
   schedule:
-    # Hourly. One round is platforms x scenarios x probes tests; with the
-    # current config (4 platforms, GitHub static-only) that is 70 tests/hour —
-    # comfortably inside the 250/hour unauthenticated cap.
-    - cron: '3 * * * *'
+    # Every 6 hours. One round is well inside the 250 tests/hour free cap.
+    - cron: '11 */6 * * *'
+  push:
+    branches: [main]
+    # Run a fresh round whenever code or config changes. The data commits this
+    # workflow makes itself only touch these paths, so they don't re-trigger it.
+    paths-ignore:
+      - 'data/**'
+      - 'site/data/**'
   workflow_dispatch:
 
 permissions:

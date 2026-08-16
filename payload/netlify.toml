@@ -1,3 +1,5 @@
+# When importing via "Add new site -> Import from Git", set the base directory
+# to "payload" — every path below is relative to it.
 [build]
   publish = "public"
   functions = "netlify/functions"
@@ -8,7 +10,7 @@
   status = 200
 
 [[headers]]
-  for = "/bench/static.txt"
+  for = "/"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
     Timing-Allow-Origin = "*"

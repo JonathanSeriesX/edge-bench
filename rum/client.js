@@ -10,10 +10,10 @@
 const ENDPOINT = 'https://edge-bench-rum.YOUR-SUBDOMAIN.workers.dev/beacon';
 const SAMPLE_RATE = 0.25; // fraction of page views that measure at all
 const TARGETS = {
-  vercel: 'https://edge-bench-sobachenka.vercel.app/bench/static.txt',
-  netlify: 'https://REPLACE-ME.netlify.app/bench/static.txt',
-  cloudflare: 'https://edge-bench.pages.dev/bench/static.txt',
-  github: 'https://jonathanseriesx.github.io/edge-bench-payload/bench/static.txt',
+  vercel: 'https://edge-bench-kappa.vercel.app/',
+  netlify: 'https://REPLACE-ME.netlify.app/',
+  cloudflare: 'https://edge-bench.pages.dev/',
+  github: 'https://jonathanseriesx.github.io/edge-bench-payload/',
 };
 
 if (Math.random() < SAMPLE_RATE && navigator.connection?.saveData !== true) {

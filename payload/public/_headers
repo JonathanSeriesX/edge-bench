@@ -1,4 +1,4 @@
-/bench/static.txt
+/
   Cache-Control: public, max-age=31536000, immutable
   Timing-Allow-Origin: *
   Access-Control-Allow-Origin: *
