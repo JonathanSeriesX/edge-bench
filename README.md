@@ -4,8 +4,14 @@ An open, continuously-updated latency benchmark of static hosting platforms —
 Vercel, Netlify, Cloudflare Pages and GitHub Pages — measured from real
 probes on six continents, entirely on free tiers.
 
-The raw measurements are committed to this repo as NDJSON. Nothing is hidden
-behind an aggregate.
+**Dashboard:** https://jonathanseriesx.github.io/edge-bench/
+
+Everything is auditable: the raw measurements are committed to this repo as
+NDJSON, the collector runs on a public GitHub Actions schedule (logs included),
+and the payload lives in its own repo,
+[edge-bench-payload](https://github.com/JonathanSeriesX/edge-bench-payload),
+deployed byte-identically to every platform — verify the hashes yourself with
+one curl loop from its README.
 
 ## Why most of these comparisons are worthless
 
@@ -48,7 +54,7 @@ in mostly measures which nameserver happened to be cold when the probe ran.
 | Path | What it is |
 |---|---|
 | `targets.json` | Platforms, probe locations, scenarios. The only file you normally edit. |
-| `payload/` | The identical test payload + per-platform deploy config. |
+| [`edge-bench-payload`](https://github.com/JonathanSeriesX/edge-bench-payload) | Separate repo: the identical test payload + per-platform deploy config. |
 | `collector/collect.mjs` | Runs one round, appends raw NDJSON to `data/`. |
 | `collector/aggregate.mjs` | Rolls raw rows into `site/data/summary.json`. |
 | `site/` | Static dashboard. No build step, no dependencies. |
@@ -59,31 +65,16 @@ in mostly measures which nameserver happened to be cold when the probe ran.
 
 ### 1. Deploy the payload to each platform
 
-From the `payload/` directory, using each platform's free tier:
+The payload is its own repo so every platform deploys from the same source:
 
-```bash
-npx vercel deploy --prod
-```
+- **Vercel / Cloudflare Pages / Netlify** — import the payload repo in each
+  dashboard ("Import from Git"). The per-platform config files at its root
+  handle everything; no build settings needed.
+- **GitHub Pages** — already served from the payload repo's `docs/` directory.
 
-```bash
-npx netlify deploy --prod --dir=public
-```
-
-```bash
-npx wrangler pages deploy public --project-name edge-bench
-```
-
-GitHub Pages: publish `payload/public/` from a branch or Actions.
-Render: create a Static Site with publish directory `payload/public`.
-
-Then verify all platforms serve the same bytes:
-
-```bash
-for h in YOUR.vercel.app YOUR.netlify.app YOUR.pages.dev YOUR.github.io YOUR.onrender.com; do echo -n "$h "; curl -s "https://$h/" | shasum -a 256; done
-```
-
-Every hash must match the one `payload/build.mjs` printed. If one differs, that
-platform is minifying or injecting something and the comparison is not fair yet.
+Then verify all platforms serve the same bytes (one-liner in the payload
+repo's README). Every hash must match — if one differs, that platform is
+minifying or injecting something and the comparison is not fair.
 
 ### 2. Point the config at your deployments
 
