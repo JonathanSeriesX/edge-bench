@@ -42,7 +42,7 @@ jobs:
         run: |
           git config user.name  "edge-bench"
           git config user.email "edge-bench@users.noreply.github.com"
-          git add data site/data
+          git add data public/data
           git diff --quiet --cached || git commit -m "data: round $(date -u +%FT%TZ)"
           git pull --rebase --autostash
           git push
